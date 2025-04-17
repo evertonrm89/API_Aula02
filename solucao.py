@@ -2,11 +2,10 @@ from sqlalchemy import create_engine, text
 
 # Substitua 'sqlite:///teste.db' pelo URL do seu banco de dados
 DATABASE_URL = 'sqlite:///biblioteca.db'
+engine = create_engine(DATABASE_URL)
 
 def consulta_aluno(id):
     try:
-        # Cria o engine de conexão
-        engine = create_engine(DATABASE_URL)
         sqlcomando = text ("SELECT * FROM Aluno WHERE id = :id")
 
         # Testa a conexão
@@ -26,7 +25,7 @@ def consulta_aluno(id):
 def todos_alunos():
     try:
         # Cria o engine de conexão
-        engine = create_engine(DATABASE_URL)
+        
         sqlcomando = text ("SELECT * FROM Aluno")
 
         # Testa a conexão
@@ -51,6 +50,28 @@ def todos_alunos():
         print(f"Erro ao conectar ao banco de dados: {e}")
     
 
+
+# 2) Crie uma função cria livro que recebe os dados de um livro (id e descrição) e o adiciona no banco de dados.
+def cria_livro(id, descricao):
+        with engine.connect() as connection:
+            sqlcomando = text ("INSERT INTO Livro (id_livro, id_aluno, descricao) VALUES (:id, :id_aluno, :descricao)")
+            connection.execute(sqlcomando, ({'id':id, 'id_aluno':None, 'descricao':descricao}))
+
+def todos_livros():
+        # Cria o engine de conexão  
+        sqlcomando = text ("SELECT * FROM Livro")
+        # Testa a conexão
+        with engine.connect() as connection:
+            resultado = connection.execute(sqlcomando)
+            livros = []
+            while True:
+                livro = resultado.fetchone()
+                if livro is None:
+                    break
+                livro = dict(livro._mapping) 
+                livros.append(livro)
+        print(livros)
+
 if __name__ == "__main__":
-    todos_alunos()
-    # Aqui você pode adicionar outras chamadas de função ou lógica do seu programa
+    cria_livro(5, "Livro de Desenvolvimento de APIs")
+    todos_livros()

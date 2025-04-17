@@ -1,11 +1,8 @@
 Exercícios
 A resolução comentada se encontra no vídeo da aula. O conteúdo da sessão anterior, mais seus conhecimentos prévios de SQL, serão suficientes para fazer esses exercícios, mas o vídeo revisa o SQL quando necessário. O exercício 6 faz uso de join.
 
-	1b) Crie uma função todos_alunos que retorna uma lista com um dicionário para cada aluno.
 
-	1c) Crie uma função todos_livros que retorna uma lista com um dicionário para cada livro.
-
-	2) Crie uma função cria livro que recebe os dados de um livro (id e descrição) e o adiciona no banco de dados.
+	
 
 	3) Crie uma função empresta_livro, que recebe a id de um livro, a id de um aluno e marca o livro como emprestado pelo aluno.
 
