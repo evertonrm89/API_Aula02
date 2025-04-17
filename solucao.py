@@ -52,10 +52,17 @@ def todos_alunos():
 
 
 # 2) Crie uma função cria livro que recebe os dados de um livro (id e descrição) e o adiciona no banco de dados.
-def cria_livro(id, descricao):
+def cria_livro(descricao=''):
+
+    try:
+        sqlcomando = text ("INSERT INTO Livro (descricao) VALUES (:descricao)")
         with engine.connect() as connection:
-            sqlcomando = text ("INSERT INTO Livro (id_livro, id_aluno, descricao) VALUES (:id, :id_aluno, :descricao)")
-            connection.execute(sqlcomando, ({'id':id, 'id_aluno':None, 'descricao':descricao}))
+            connection.execute(sqlcomando, {"descricao":descricao})
+            connection.commit()
+
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        
 
 def todos_livros():
         # Cria o engine de conexão  
@@ -73,5 +80,5 @@ def todos_livros():
         print(livros)
 
 if __name__ == "__main__":
-    cria_livro(5, "Livro de Desenvolvimento de APIs")
+    cria_livro("Livro de Desenvolvimento de APIs")
     todos_livros()
