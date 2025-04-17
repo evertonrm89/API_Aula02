@@ -63,6 +63,24 @@ def cria_livro(descricao=''):
     except Exception as e:
         print(f"Erro ao conectar ao banco de dados: {e}")
         
+def consulta_id_livro(id):
+    try:
+        sqlcomando = text ("SELECT * FROM Livro WHERE id_livro = :id")
+
+        with engine.connect() as connection:
+            resultado = connection.execute(sqlcomando, {"id":id})
+            livro = resultado.fetchone()
+        
+            if livro:
+                print(livro)
+                return livro
+            else:
+                print("Livro não encontrado.")
+                return None
+            
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return None
 
 def todos_livros():
         # Cria o engine de conexão  
@@ -79,6 +97,24 @@ def todos_livros():
                 livros.append(livro)
         print(livros)
 
+# 3) Crie uma função empresta_livro, 
+# que recebe a id de um livro, a id de um aluno e marca o livro como emprestado pelo aluno.
+
+def empresta_livro(id_livro):
+    try:
+        livro = consulta_id_livro(id_livro)
+        #livro = dict(livro)
+        if livro is None:
+            print("Livro não encontrado.")
+        elif livro[1] is not None:
+            print("Livro já emprestado.")
+        else:
+            print("Livro disponível para empréstimo.")
+            
+        
+
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados (empresta livro): {e}")
+
 if __name__ == "__main__":
-    cria_livro("Livro de Desenvolvimento de APIs")
-    todos_livros()
+    empresta_livro(1)
