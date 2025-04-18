@@ -147,6 +147,36 @@ def devolve_livro(id_livro):
     except Exception as e:
         print(f"Erro (devolve_livro(id_livro)): {e}")
 
+#	5) Crie uma função livros_parados que devolve a lista de todos os livros que não estão emprestados
+#  por ninguém (uma lista de dicionários, um para cada livro).
+
+def livros_disponiveis():
+    try:
+        sqlConsulta = text ("SELECT * FROM Livro WHERE id_aluno is NULL")
+        with engine.connect() as connection:
+
+            resultado = connection.execute(sqlConsulta)
+            listaLivros = []
+            
+            while True:
+                livro = resultado.fetchone()
+                if livro is None:
+                    break
+                
+                livro = dict(livro._mapping)
+                listaLivros.append(livro)
+
+            print(listaLivros)
+
+    
+    except Exception as e:
+        print(f"Erro: (livros_disponiveis())")
+
+#	6) Crie uma função livros_do_aluno, recebe o nome do aluno e devolve a lista 
+# de todos os livros que estão com o aluno no momento.
+
+
 
 if __name__ == "__main__":
-    devolve_livro(5)
+    devolve_livro(1)
+    livros_disponiveis()

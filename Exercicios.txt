@@ -5,6 +5,5 @@ A resolução comentada se encontra no vídeo da aula. O conteúdo da sessão an
 
 	
 
-	5) Crie uma função livros_parados que devolve a lista de todos os livros que não estão emprestados por ninguém (uma lista de dicionários, um para cada livro).
 
-	6) Crie uma função livros_do_aluno, recebe o nome do aluno e devolve a lista de todos os livros que estão com o aluno no momento.
+
