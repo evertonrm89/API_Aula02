@@ -2,11 +2,8 @@ Exercícios
 A resolução comentada se encontra no vídeo da aula. O conteúdo da sessão anterior, mais seus conhecimentos prévios de SQL, serão suficientes para fazer esses exercícios, mas o vídeo revisa o SQL quando necessário. O exercício 6 faz uso de join.
 
 
+
 	
-
-	3) Crie uma função empresta_livro, que recebe a id de um livro, a id de um aluno e marca o livro como emprestado pelo aluno.
-
-	4) Crie uma função devolve_livro, que recebe a id de um livro, e marca o livro como disponível.
 
 	5) Crie uma função livros_parados que devolve a lista de todos os livros que não estão emprestados por ninguém (uma lista de dicionários, um para cada livro).
 
