@@ -174,15 +174,15 @@ def livros_disponiveis():
 #	6) Crie uma função livros_do_aluno, recebe o nome do aluno e devolve a lista 
 # de todos os livros que estão com o aluno no momento.
 
-def livro_do_aluno(nome_aluno=''):
+def livro_do_aluno(nome_aluno):
     try:
         sqlConsulta = text ("SELECT * FROM livro WHERE id_aluno = (SELECT id FROM aluno WHERE nome = :nome)")
         
         with engine.connect() as connection:
+            
             lista_livro = []
-
             resultado = connection.execute(sqlConsulta, {"nome":nome_aluno})
-            cont=0
+
             while True:
                 livro = resultado.fetchone()
                 if livro is None:
@@ -190,10 +190,10 @@ def livro_do_aluno(nome_aluno=''):
                         print("Aluno não possui livros emprestado")
                     break
                 else:
-                    cont=1
                     livro = dict(livro._mapping)
                     lista_livro.append(livro)
-            print(lista_livro)
+            if lista_livro.__len__() != 0:
+                print(lista_livro)
     
     except Exception as e:
         print(f"Erro: (livro_do_aluno(nome_aluno)): {e}")
@@ -202,4 +202,4 @@ if __name__ == "__main__":
     #devolve_livro(2)
     #livros_disponiveis()
 
-    livro_do_aluno("Mirtes")
+    livro_do_aluno("Mirts")
