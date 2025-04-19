@@ -176,20 +176,22 @@ def livros_disponiveis():
 
 def livro_do_aluno(nome_aluno):
     try:
-        sqlConsulta = text ("SELECT * FROM livro WHERE id_aluno = (SELECT id FROM aluno WHERE nome = :nome)")
+        sqlConsulta = text ("SELECT Aluno.nome, livro.id_livro, Livro.descricao FROM livro JOIN Aluno ON Livro.id_aluno = Aluno.id WHERE Aluno.nome = :nome")
         
         with engine.connect() as connection:
             
             lista_livro = []
             resultado = connection.execute(sqlConsulta, {"nome":nome_aluno})
-
+            cont = False
             while True:
+
                 livro = resultado.fetchone()
                 if livro is None:
-                    if cont == 0:
+                    if cont == False:
                         print("Aluno não possui livros emprestado")
                     break
                 else:
+                    cont = True
                     livro = dict(livro._mapping)
                     lista_livro.append(livro)
             if lista_livro.__len__() != 0:
@@ -202,4 +204,4 @@ if __name__ == "__main__":
     #devolve_livro(2)
     #livros_disponiveis()
 
-    livro_do_aluno("Mirts")
+    livro_do_aluno("Mirtes")
